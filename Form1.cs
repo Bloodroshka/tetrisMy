@@ -17,6 +17,7 @@ namespace WindowsFormsApplication1
         }
         List <Point> allpoints = new List<Point>();
         Class1 figure = new Class1();
+        int [,] tetr = new int[20, 40];
 
         private void timer1_Tick(object sender, EventArgs e)
         {
@@ -29,8 +30,10 @@ namespace WindowsFormsApplication1
                 }
                 else
                 {
+                    checkline();
                     foreach (Point p in figure.FillPoint)
                     {
+                        
                         allpoints.Add(p);
                     }
                     figure = new Class1();
@@ -159,6 +162,47 @@ namespace WindowsFormsApplication1
             }
             else a = false;
             return a;
+        }
+        private void checkline()
+        {
+            bool isdel = true;
+            for (int i = 0; i < tetr.GetLength(1); i++)
+            {
+                for (int j = 0; j < tetr.GetLength(0); j++)
+                {
+                    if (tetr[j, i] == 0)
+                    {
+                        isdel = false;
+                        break;
+                    }
+
+                }
+                if (isdel)
+                {
+                    for (int j = 0; j < tetr.GetLength(0); j++)
+                    {
+                        tetr[i, j] = 0;
+                            for (int k = i; k > 0; k--)
+                            {
+                                tetr[j, k] = tetr[j, k - 1];
+                               
+
+                            }
+                    }
+                    allpoints.Clear();
+                    for (int i1 = 0; i1 < tetr.GetLength(0); i1++)
+                    {
+                        for (int j= 0; j < tetr.GetLength(0); j++)
+                        {
+                            if (tetr[i1, j] != 0)
+                            {
+                                Point pt = new Point(i1 * 1, j * 15);
+                                allpoints.Add(pt);
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }
