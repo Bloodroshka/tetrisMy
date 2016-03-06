@@ -16,7 +16,7 @@ namespace WindowsFormsApplication1
             InitializeComponent();
         }
         List <Point> allpoints = new List<Point>();
-        Class1 figure = new Class1();
+        FIGURE figure = new FIGURE();
         int score = 0;
         bool [,] tetr = new bool[20, 40];
         private void timer1_Tick(object sender, EventArgs e)
@@ -41,7 +41,7 @@ namespace WindowsFormsApplication1
                         tetr[p1t.X / figure.razm, p1t.Y / figure.razm] = true;
                     }
                     checkline();
-                    figure = new Class1();
+                    figure = new FIGURE();
                 }
                 pictureBox1.Invalidate();
             }
