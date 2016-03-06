@@ -17,8 +17,8 @@ namespace WindowsFormsApplication1
         }
         List <Point> allpoints = new List<Point>();
         Class1 figure = new Class1();
-        int [,] tetr = new int[20, 40];
-
+        int score = 0;
+        bool [,] tetr = new bool[20, 40];
         private void timer1_Tick(object sender, EventArgs e)
         {
             if (!gameover())
@@ -30,12 +30,17 @@ namespace WindowsFormsApplication1
                 }
                 else
                 {
-                    checkline();
+                    
                     foreach (Point p in figure.FillPoint)
                     {
                         
                         allpoints.Add(p);
                     }
+                    foreach (Point p1t in figure.FillPoint)
+                    {
+                        tetr[p1t.X / figure.razm, p1t.Y / figure.razm] = true;
+                    }
+                    checkline();
                     figure = new Class1();
                 }
                 pictureBox1.Invalidate();
@@ -67,6 +72,17 @@ namespace WindowsFormsApplication1
             {
                 holst.FillRectangle(br, p.X, p.Y, figure.razm, figure.razm);
                 holst.DrawRectangle(pn, p.X, p.Y, figure.razm, figure.razm);
+            }
+            for (int i = 0; i < tetr.GetLength(0); i++)
+            {
+                for (int j = 0; j < tetr.GetLength(1); j++)
+                {
+                    if (tetr[i, j])
+                    {
+                        SolidBrush Brush = new SolidBrush(Color.HotPink);
+                        holst.FillEllipse(Brush, new Rectangle(new Point(i * 15, j * 15), new Size(5, 5)));
+                    }
+                }
             }
         }
         private bool canfall()
@@ -121,6 +137,12 @@ namespace WindowsFormsApplication1
                         pictureBox1.Invalidate();
                     }
                     break;
+                case Keys.S:
+                    while (canfall())
+                    {
+                        figure.stepfigure();
+                    }
+                    break;
             }
         }
         private bool canright()
@@ -165,12 +187,15 @@ namespace WindowsFormsApplication1
         }
         private void checkline()
         {
-            bool isdel = true;
+            int lineseaten = 0;
+            
+        
             for (int i = 0; i < tetr.GetLength(1); i++)
             {
+                bool isdel = true;
                 for (int j = 0; j < tetr.GetLength(0); j++)
                 {
-                    if (tetr[j, i] == 0)
+                    if (!tetr[j, i])
                     {
                         isdel = false;
                         break;
@@ -179,30 +204,33 @@ namespace WindowsFormsApplication1
                 }
                 if (isdel)
                 {
+                    lineseaten++;
                     for (int j = 0; j < tetr.GetLength(0); j++)
                     {
-                        tetr[i, j] = 0;
+                        tetr[j, i]  = false;
                             for (int k = i; k > 0; k--)
                             {
                                 tetr[j, k] = tetr[j, k - 1];
-                               
 
                             }
                     }
                     allpoints.Clear();
                     for (int i1 = 0; i1 < tetr.GetLength(0); i1++)
                     {
-                        for (int j= 0; j < tetr.GetLength(0); j++)
+                        for (int j= 0; j < tetr.GetLength(1); j++)
                         {
-                            if (tetr[i1, j] != 0)
+                            if (tetr[i1, j])
                             {
-                                Point pt = new Point(i1 * 1, j * 15);
+                                Point pt = new Point(i1 * 15, j * 15);
                                 allpoints.Add(pt);
                             }
                         }
                     }
                 }
             }
+        score += lineseaten * 100;
+        label1.Text = Convert.ToString(score);
+        label2.Text = Convert.ToString(lineseaten);
         }
     }
 }
