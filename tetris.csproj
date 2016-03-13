@@ -46,6 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="STUUUUL_L.cs" />
+    <Compile Include="STUUUUL_R.cs" />
     <Compile Include="SQUARE.cs" />
     <Compile Include="FIGURE.cs" />
     <Compile Include="Form1.cs">

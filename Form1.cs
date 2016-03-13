@@ -16,7 +16,7 @@ namespace WindowsFormsApplication1
             InitializeComponent();
         }
         List <Point> allpoints = new List<Point>();
-        FIGURE figure = new FIGURE();
+        STUUUUL_L figure = new STUUUUL_L();
         int score = 0;
         bool [,] tetr = new bool[20, 40];
         private void timer1_Tick(object sender, EventArgs e)
@@ -41,7 +41,7 @@ namespace WindowsFormsApplication1
                         tetr[p1t.X / figure.razm, p1t.Y / figure.razm] = true;
                     }
                     checkline();
-                    figure = new FIGURE();
+                    figure = new STUUUUL_L();
                 }
                 pictureBox1.Invalidate();
             }
@@ -88,7 +88,7 @@ namespace WindowsFormsApplication1
         private bool canfall()
         {
             bool a = true;
-            if (figure.middlethemostleft.Y + figure.razm < pictureBox1.Height)
+            if (figure.snt.Y + figure.razm < pictureBox1.Height)
             {
                 foreach (Point p in figure.FillPoint)
                 {
@@ -168,7 +168,7 @@ namespace WindowsFormsApplication1
         private bool canleft()
         {
             bool a = true;
-            if (figure.middlethemostleft.X - figure.razm >= 0)
+            if (figure.slt.X - figure.razm >= 0)
             {
                 foreach (Point p in figure.FillPoint)
                 {

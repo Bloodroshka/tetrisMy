@@ -6,7 +6,7 @@ using System.Drawing;
 
 namespace WindowsFormsApplication1
 {
-    class FIGURE
+    abstract class FIGURE
     {
         //поля
         public int razm
@@ -14,7 +14,7 @@ namespace WindowsFormsApplication1
             get { return 15; }
         }
         public Color cl = Color.Yellow;
-        public Point place = new Point();
+        public Point place = new Point(15, 0);
         public Point right
         {
             get
@@ -41,6 +41,38 @@ namespace WindowsFormsApplication1
             {
                 Point mtml = new Point(place.X, place.Y + razm);
                 return mtml;
+            }
+        }
+        public Point snt
+        {
+            get
+            {
+                Point a = place;
+                foreach (Point p in FillPoint)
+                {
+                    if (p.Y > a.Y)
+                    {
+                        a = p;
+                    }
+                }
+
+                return a;
+            }
+        }
+        public Point slt
+        {
+            get
+            {
+                Point a = place;
+                foreach (Point p in FillPoint)
+                {
+                    if (p.X < a.X)
+                    {
+                        a = p;
+                    }
+                }
+
+                return a;
             }
         }
         //методы
