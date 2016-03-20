@@ -16,7 +16,28 @@ namespace WindowsFormsApplication1
             InitializeComponent();
         }
         List <Point> allpoints = new List<Point>();
-        STUUUUL_L figure = new STUUUUL_L();
+        FIGURE figure = randomizer();
+        private static FIGURE randomizer()
+        {
+            Random r = new Random();
+            FIGURE res = new SQUARE();
+            switch (r.Next(0, 4))
+            {
+                case 0:
+                    res = new SQUARE();
+                    break;
+                case 1:
+                    res = new STUUUUL_R();
+                    break;
+                case 2:
+                    res = new STUUUUL_L();
+                    break;
+                case 3:
+                    res = new LINE();
+                    break;
+            }
+            return res;
+        }
         int score = 0;
         bool [,] tetr = new bool[20, 40];
         private void timer1_Tick(object sender, EventArgs e)
@@ -41,7 +62,7 @@ namespace WindowsFormsApplication1
                         tetr[p1t.X / figure.razm, p1t.Y / figure.razm] = true;
                     }
                     checkline();
-                    figure = new STUUUUL_L();
+                    figure = randomizer();
                 }
                 pictureBox1.Invalidate();
             }
@@ -142,6 +163,9 @@ namespace WindowsFormsApplication1
                     {
                         figure.stepfigure();
                     }
+                    break;
+                case Keys.Space:
+                    figure.rotate();
                     break;
             }
         }

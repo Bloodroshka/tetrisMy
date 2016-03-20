@@ -6,7 +6,7 @@ using System.Drawing;
 
 namespace WindowsFormsApplication1
 {
-    class STUUUUL_L : FIGURE
+    class LINE : FIGURE
     {
         public override List<Point> FillPoint
         {
@@ -15,22 +15,22 @@ namespace WindowsFormsApplication1
                 List<Point> result = new List<Point>();
                 switch (state)
                 {
-                    case (0):
+                    case(0):
                         result.Add(place);
-                        result.Add(new Point(place.X, place.Y - razm));
                         result.Add(new Point(place.X + razm, place.Y));
-                        result.Add(new Point(place.X + razm, place.Y + razm));
-                        break;
+                        result.Add(new Point(place.X + razm + razm, place.Y));
+                        result.Add(new Point(place.X + razm + razm + razm, place.Y));
+                    break;
                     case (1):
                         result.Add(place);
-                        result.Add(new Point(place.X + razm, place.Y));
                         result.Add(new Point(place.X, place.Y + razm));
-                        result.Add(new Point(place.X - razm, place.Y + razm));
-                        break;
-
+                        result.Add(new Point(place.X, place.Y + razm + razm));
+                        result.Add(new Point(place.X, place.Y + razm + razm + razm));
+                    break;
                 }
                 return result;
             }
+            
         }
         public override void rotate()
         {

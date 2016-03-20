@@ -35,6 +35,7 @@ namespace WindowsFormsApplication1
         {
             get;
         }
+        public int state { get; set; }
         public Point middlethemostleft
         {
             get
@@ -91,6 +92,6 @@ namespace WindowsFormsApplication1
         {
             place = new Point(place.X, place.Y + razm);
         }
-       
+        public virtual void rotate(){}
     }
 }
