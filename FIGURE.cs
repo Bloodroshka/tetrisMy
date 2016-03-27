@@ -76,6 +76,22 @@ namespace WindowsFormsApplication1
                 return a;
             }
         }
+        public Point srt
+        {
+            get
+            {
+                Point a = place;
+                foreach (Point p in FillPoint)
+                {
+                    if (p.X > a.X)
+                    {
+                        a = p;
+                    }
+                }
+
+                return a;
+            }
+        }
         //методы
         public void drawfigure(Graphics holst)
         {

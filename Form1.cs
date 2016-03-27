@@ -21,7 +21,7 @@ namespace WindowsFormsApplication1
         {
             Random r = new Random();
             FIGURE res = new SQUARE();
-            switch (r.Next(0, 4))
+            switch (r.Next(0, 7))
             {
                 case 0:
                     res = new SQUARE();
@@ -34,6 +34,14 @@ namespace WindowsFormsApplication1
                     break;
                 case 3:
                     res = new LINE();
+                    break;
+                case 4:
+                    res = new TTTTTT();
+                    break;
+                case 5:
+                    break;
+                case 6:
+                    res = new G_R();
                     break;
             }
             return res;
@@ -139,7 +147,28 @@ namespace WindowsFormsApplication1
                 }
             return a;
         }
-
+        public bool Canrotate()
+        {
+            int figurot = figure.state;
+            figure.rotate();
+            foreach (Point pp in figure.FillPoint)
+                if (pp.X >= 0 && pp.Y < pictureBox1.Height && pp.X <= pictureBox1.Width)
+                    foreach (Point po in allpoints)
+                    {
+                        if (po.Equals(pp))
+                        {
+                            figure.state = figurot;
+                            return false;
+                        }
+                    }
+                else
+                {
+                    figure.state = figurot;
+                    return false;
+                }
+            figure.state = figurot;
+            return true;
+        }
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
             switch (e.KeyCode)
@@ -165,14 +194,17 @@ namespace WindowsFormsApplication1
                     }
                     break;
                 case Keys.Space:
-                    figure.rotate();
+                    if (Canrotate())
+                    {
+                        figure.rotate();
+                    }
                     break;
             }
         }
         private bool canright()
         {
             bool a = true;
-            if (figure.right.X + 2 * figure.razm <= pictureBox1.Width)
+            if (figure.srt.X + 2*figure.razm <= pictureBox1.Width)
             {
                 foreach (Point p in figure.FillPoint)
                 {
